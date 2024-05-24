@@ -1,0 +1,256 @@
+import React from 'react';
+
+export function Inventory( {ctx, G, moves} ) {
+  const handleDiscardCommon = (name) => moves.discardCard(name, "commonItems")
+  const handleDiscardUnique = (name) => moves.discardCard(name, "uniqueItems")
+  const handleDiscardSpell = (name) => moves.discardCard(name, "spells")
+  const handleDiscardSkill = (name) => moves.discardCard(name, "skills")
+
+  const handleDrawCommon = () => moves.drawCard("commonItems")
+  const handleDrawUnique = () => moves.drawCard("uniqueItems")
+  const handleDrawSpell = () => moves.drawCard("spells")
+  const handleDrawSkill = () => moves.drawCard("skills")
+
+  return(
+    <div className="ui grid">
+      <Menu
+        drawCommon={handleDrawCommon}
+        drawUnique={handleDrawUnique}
+        drawSpell={handleDrawSpell}
+        drawSkill={handleDrawSkill}
+      />
+      <AllCards
+        dataCommon={G.players[ctx["currentPlayer"]]["commonItems"]}
+        discardCommon={handleDiscardCommon}
+        dataUnique={G.players[ctx["currentPlayer"]]["uniqueItems"]}
+        discardUnique={handleDiscardUnique}
+        dataSpell={G.players[ctx["currentPlayer"]]["spells"]}
+        discardSpell={handleDiscardSpell}
+        dataSkill={G.players[ctx["currentPlayer"]]["skills"]}
+        discardSkill={handleDiscardSkill}
+      />
+    </div>
+  )
+}
+
+// Common Items
+function CommonItemList(props){
+  return(
+    props.data.map((card) =>
+      <CommonItem
+        name={card.name}
+        type={card.type}
+        description={card.description}
+        hands={card.hands}
+        price={card.price}
+        discard={props.discard}
+      />
+    )
+  )
+}
+
+function CommonItem(props){
+  return(
+    <div className="ui card">
+      <div className="image">
+      </div>
+      <div className="content">
+        <span className="right floated">
+          <i className="newspaper icon"></i>
+        </span>
+        <a className="header">{props.name}</a>
+        <div className="meta">
+          <span className="date">{props.type}</span>
+        </div>
+        <div className="description">
+          {props.description}
+        </div>
+      </div>
+      <div className="extra content">
+        <span className="right floated">
+          <i className="hand paper icon"></i>
+          {props.hands}
+        </span>
+        <i className="dollar sign icon"></i>
+        {props.price}
+      </div>
+      <button className="ui brown button" onClick={() => props.discard(props.name)}>
+        Discard
+      </button>
+    </div>
+  )
+}
+
+// Unique Items
+
+function UniqueItemList(props){
+  return(
+    props.data.map((card) =>
+      <UniqueItem
+        name={card.name}
+        type={card.type}
+        description={card.description}
+        hands={card.hands}
+        price={card.price}
+        discard={props.discard}
+      />
+    )
+  )
+}
+
+function UniqueItem(props){
+  return(
+    <div className="ui card">
+      <div className="image">
+      </div>
+      <div className="content">
+        <span className="right floated">
+          <i className="star icon"></i>
+        </span>
+        <a className="header">{props.name}</a>
+        <div className="meta">
+          <span className="date">{props.type}</span>
+        </div>
+        <div className="description">
+          {props.description}
+        </div>
+      </div>
+      <div className="extra content">
+        <span className="right floated">
+          <i className="hand paper icon"></i>
+          {props.hands}
+        </span>
+        <i className="dollar sign icon"></i>
+        {props.price}
+      </div>
+      <button className="ui purple button" onClick={() => props.discard(props.name)}>
+        Discard
+      </button>
+    </div>
+  )
+}
+
+// Spells
+
+function SpellList(props){
+  return(
+    props.data.map((card) =>
+      <Spell
+        name={card.name}
+        casting={card["Casting Modifier"]}
+        sanity={card["Sanity Cost"]}
+        description={card.description}
+        discard={props.discard}
+      />
+    )
+  )
+}
+
+function Spell(props){
+  return(
+    <div className="ui card">
+      <div className="image">
+      </div>
+      <div className="content">
+        <span className="right floated">
+          <i className="book icon"></i>
+        </span>
+        <a className="header">{props.name}</a>
+        <div className="meta">
+          <span className="date">Casting Modifier: {props.casting}</span>
+        </div>
+        <div>
+          <span className="date">Sanity Cost: {props.sanity}</span>
+        </div>
+        <div className="description">
+          {props.description}
+        </div>
+      </div>
+      <button className="ui pink button" onClick={() => props.discard(props.name)}>
+        Discard
+      </button>
+    </div>
+  )
+}
+
+//Skills
+
+function SkillList(props){
+  return(
+    props.data.map((card) =>
+      <Skill
+        name={card.name}
+        modifier={card.modifier}
+        description={card.description}
+        discard={props.discard}
+      />
+    )
+  )
+}
+
+function Skill(props){
+  return(
+    <div className="ui card">
+      <div className="image">
+      </div>
+      <div className="content">
+        <a className="header">{props.name}</a>
+        <div className="meta">
+          <span className="date">Modifier: {props.modifier}</span>
+        </div>
+        <div className="description">
+          {props.description}
+        </div>
+      </div>
+      <button className="ui yellow button" onClick={() => props.discard(props.name)}>
+        Discard
+      </button>
+    </div>
+  )
+}
+
+function AllCards(props) {
+
+  return(
+    <div className="ui stackable cards">
+      <CommonItemList
+        data={props.dataCommon}
+        discard={props.discardCommon}
+      />
+
+      <UniqueItemList
+        data={props.dataUnique}
+        discard={props.discardUnique}
+      />
+
+      <SpellList
+        data={props.dataSpell}
+        discard={props.discardSpell}
+      />
+
+      <SkillList
+        data={props.dataSkill}
+        discard={props.discardSkill}
+      />
+    </div>
+  )
+}
+
+function Menu(props){
+  return(
+    <div class="ui vertical fluid tabular menu">
+      <button className="ui brown button" onClick={ () => props.drawCommon()}>
+        Common
+      </button>
+      <button className="ui purple button" onClick={ () => props.drawUnique()}>
+        Unique
+      </button>
+      <button className="ui pink button" onClick={ () => props.drawSpell()}>
+        Spell
+      </button>
+      <button className="ui yellow button" onClick={ () => props.drawSkill()}>
+        Skill
+      </button>
+    </div>
+  )
+}

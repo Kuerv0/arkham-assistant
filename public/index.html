@@ -24,20 +24,48 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+
+    <link rel="stylesheet" type="text/css" href="./semantic/semantic.min.css">
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="./semantic/semantic.min.js"></script>
+    <title>Arkham Horror Assistant</title>
   </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+  <div class="ui attached stackable menu">
+    <div class="ui container">
+      <a class="item">
+        <i class="user icon"></i> Character
+      </a>
+      <a class="item">
+        <i class="briefcase icon"></i> Inventory
+      </a>
+      <a class="item">
+        <i class="briefcase icon"></i> Encounters
+      </a>
+      <a class="item">
+        <i class="briefcase icon"></i> Other World Encounters
+      </a>
+      <a class="item">
+        <i class="heartbeat icon"></i> Mythos
+      </a>
+      <div class="ui simple dropdown item">
+        More
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <a class="item"><i class="edit icon"></i> Edit Profile</a>
+          <a class="item"><i class="globe icon"></i> Choose Language</a>
+          <a class="item"><i class="settings icon"></i> Account Settings</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+  <body class="ui container">
+    <div id="root" class="ui container"></div>
   </body>
+
 </html>

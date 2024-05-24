@@ -1,0 +1,55 @@
+Choose first player
+
+Determine Investigators
+
+Reveal Ancient One
+
+Separete Decks
+
+Receive Fixed Possessions
+
+Shuffle Investigator Decks
+
+Receive Random Possessions
+
+Finish Investigator Setup
+Sanity Tokens
+Stamina Tokens
+Skill sliders
+
+Create Monster Cup
+
+Shuffle ancient one decks and gate markers
+
+Place Investigator Markers
+
+Draw and resolver Mythos cards
+
+
+Phases
+
+Phase 1: Upkeep
+  Refresh Exhausted Cards
+  Perform Upkeep Actions (retainers, spell)
+  Adjust Skills
+
+Phase 2: Movement
+  Arkham Movement
+    Determine Movement Points
+
+    Other World Movement
+
+    Delayed Investigators
+      Pick up Investigator
+
+Phase 3: Arkham Encounters
+  No gate
+
+  Gate
+Phase 4: Other World Encounters
+  
+Phase 5: Mythos
+  Open Gate and Spawn Monster
+  Place Clue Token
+  Move Monsters
+  Activate Mythos Ability

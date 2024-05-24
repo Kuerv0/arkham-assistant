@@ -228,8 +228,8 @@
      {
        "name": "warding statue",
        "type": "",
-       "description": "<b>Any Phase:</b> Discard Warding Statue after failing a <b>Combat check</b>",
-       "price": 2,
+       "description": "<b>Any Phase:</b> Discard Warding Statue after failing a <b>Combat check</b> to reduce the mosnter's combat damage to 0 Stamina. This can also be used to cancel an Ancient One's entire Attack for 1 turn.",
+       "price": 6,
        "hands": "",
        "count": 1
      }
