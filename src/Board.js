@@ -12,7 +12,7 @@ export function Inventory( {ctx, G, moves} ) {
   const handleDrawSkill = () => moves.drawCard("skills")
 
   return(
-    <div className="ui grid">
+    <div className="ui centered grid">
       <Menu
         drawCommon={handleDrawCommon}
         drawUnique={handleDrawUnique}
@@ -38,6 +38,20 @@ export function Inventory( {ctx, G, moves} ) {
         title={"Gate"}
         data={G["gateLast"]}
       />
+      <Location
+        data={G["locationLast"]}
+      />
+      <div>
+        {G["players"][ctx["currentPlayer"]]["investigator"]["name"]}
+      </div>
+      <div>
+        {G["ancientOne"]["name"]}
+      </div>
+      <div className="row">
+        <Convertido
+          data={G["lastConversion"]}
+        />
+      </div>
     </div>
   )
 }
@@ -79,8 +93,7 @@ function CommonItem(props){
           <i className="hand paper icon"></i>
           {props.hands}
         </span>
-        <i className="dollar sign icon"></i>
-        {props.price}
+        <i className="left floated dollar sign icon">{props.price}</i>
       </div>
       <button className="ui brown button" onClick={() => props.discard(props.name)}>
         Discard
@@ -126,8 +139,7 @@ function UniqueItem(props){
           <i className="hand paper icon"></i>
           {props.hands}
         </span>
-        <i className="dollar sign icon"></i>
-        {props.price}
+        <i className="left floated dollar sign icon">{props.price}</i>
       </div>
       <button className="ui purple button" onClick={() => props.discard(props.name)}>
         Discard
@@ -200,7 +212,7 @@ function Skill(props){
       <div className="content">
         <a className="header">{props.name}</a>
         <div className="meta">
-          <span className="date">Modifier: {props.modifier}</span>
+          <span className="date">{props.modifier}</span>
         </div>
         <div className="description" dangerouslySetInnerHTML={{__html: props.description}}></div>
       </div>
@@ -240,7 +252,7 @@ function AllCards(props) {
 
 function Menu(props){
   return(
-    <div class="one row centered column">
+    <div className="one row centered column">
       <button className="ui brown button" onClick={ () => props.drawCommon()}>
         Common
       </button>
@@ -259,15 +271,15 @@ function Menu(props){
 
 function MythosList(props){
   return(
-    <div className="three column row">
+    <div className="three row centered column">
+      <Mythos
+        data={props.dataLast}
+      />
       <Mythos
         data={props.dataEnv}
       />
       <Mythos
         data={props.dataRum}
-      />
-      <Mythos
-        data={props.dataLast}
       />
     </div>
   )
@@ -275,26 +287,32 @@ function MythosList(props){
 
 function Mythos(props){
   return(
-    <div className="column">
-      <div className="ui centered card">
+    <div className="ui centered stackable cards">
+      <div className="ui card">
         <div className="image">
         </div>
         <div className="content">
+          <div>
+            <i className="street view icon"></i>
+            <span className="date">{props.data["gate location"]}</span>
+          </div>
+            <i className="search icon"></i>
+            <span className="date">{props.data["clue appears at"]}</span>
+          <div>
+          </div>
+            <i className="circle icon"></i>
+            <span className="date">{props.data["black"]}</span>
+          <div>
+          </div>
+            <i className="circle outline icon"></i>
+            <span className="date">{props.data["white"]}</span>
+          <div>
+          </div>
+        </div>
+        <div className="extra content">
           <a className="header">{props.data.name}</a>
           <div className="meta">
             <span className="date">{props.data.type}</span>
-          </div>
-            <span className="date">black: {props.data["black"]}</span>
-          <div>
-          </div>
-            <span className="date">white: {props.data["white"]}</span>
-          <div>
-          </div>
-            <span className="date">clue appears at: {props.data["clue appears at"]}</span>
-          <div>
-          </div>
-            <span className="date">gate location: {props.data["gate location"]}</span>
-          <div>
           </div>
           <div className="description" dangerouslySetInnerHTML={{__html: props.data.description}}></div>
         </div>
@@ -304,13 +322,14 @@ function Mythos(props){
 }
 
 function Gate(props){
+  let name = "ui "
+  name = name.concat(props.data.color, " card")
   return(
-    <div className="one column row">
-      <div className="ui centered card">
+    <div className="row">
+      <div className={name}>
         <div className="image">
         </div>
         <div className="content">
-          <a className="header">{props.data.color}</a>
           <div className="description" dangerouslySetInnerHTML={{__html: props.data.description}}>
           </div>
         </div>
@@ -319,3 +338,24 @@ function Gate(props){
   )
 }
 
+function Location(props){
+  return(
+    <div className="row">
+      <div className="ui centered card">
+        <div className="image">
+        </div>
+        <div className="content">
+          <div className="description" dangerouslySetInnerHTML={{__html: props.data.text}}>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function Convertido(props){
+  return(
+    <div className="description" dangerouslySetInnerHTML={{__html: props.data}}>
+    </div>
+  )
+}

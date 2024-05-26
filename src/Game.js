@@ -1,3 +1,5 @@
+import { conversor } from './utilities'
+
 import allies from './data/base-game/investigator-cards/allies.json'
 import common from './data/base-game/investigator-cards/common-items.json'
 import skills from './data/base-game/investigator-cards/skills.json'
@@ -8,7 +10,7 @@ import investigators from './data/base-game/investigator-cards/investigators.jso
 
 import mythos from './data/base-game/ancient-one-cards/mythos-cards.json'
 import gate from './data/base-game/ancient-one-cards/gate-cards.json'
-// import locations from 
+import locations from './data/base-game/ancient-one-cards/location-cards.json'
 import gods from './data/base-game/ancient-one-cards/ancient-ones.json'
 
 export const ArkhamHorror = {
@@ -27,17 +29,33 @@ export const ArkhamHorror = {
     deputy : deckBuilder(special["Deputy"]),
 
     ancientOneSheets : deckBuilder(gods["Ancient Ones"]),
-    locationCards : {},
     mythosCards : deckBuilder(mythos["Mythos Cards"]),
     gateCards : deckBuilder(gate["Gate Cards"]),
+    locationCards :{
+      "Miskatonic University": deckBuilder(locations["Miskatonic University"]),
+      "Downtown": deckBuilder(locations["Downtown"]),
+      "Rivertown": deckBuilder(locations["Rivertown"]),
+      "Northside": deckBuilder(locations["Northside"]),
+      "Easttown": deckBuilder(locations["Easttown"]),
+      "Southside": deckBuilder(locations["Southside"]),
+      "French Hill": deckBuilder(locations["French Hill"]),
+      "Merchant District": deckBuilder(locations["Merchant District"]),
+      "Uptown": deckBuilder(locations["Uptown"]),
+    },
 
     mythosEnv: {},
     mythosRum: {},
     mythosLast: {},
 
+    locationLast: {},
+
     gateLast: {},
 
+    ancientOne: { name: "No"},
+
     box: [],
+
+    lastConversion: {},
 
     players : playerBuilder(ctx.numPlayers)
   }),
@@ -56,7 +74,13 @@ export const ArkhamHorror = {
       }
     },
 
-    drawCard: ( {G, ctx}, deck ) => {
+    drawLocationCard: ( {G, ctx}, name ) => {
+      G["locationLast"] = G["locationCards"][name][0]
+      shuffle(G["locationCards"][name])
+    },
+
+    drawCard: ( {G, ctx, playerID}, deck ) => {
+      console.log(playerID)
       let card = G[deck].pop()
       G.players[ctx["currentPlayer"]][deck].push(card)
     },
@@ -73,12 +97,6 @@ export const ArkhamHorror = {
         }
       }
     },
-
-//    drawInvestigator: ( {G, ctx, moves} ) => {
-//      let investigator = G.players[ctx["currentPlayer"]]["investigator"]
-//      let card = G["investigatorSheets"].pop()
-//      investigator = card
-//    },
 
     drawMythos: ( {G, ctx, moves} ) => {
       let card = G["mythosCards"].pop()
@@ -110,35 +128,30 @@ export const ArkhamHorror = {
       let card = G["gateCards"].pop()
       G["gateLast"] = card
       G["gateCards"].unshift(card)
+    },
+
+    drawInvestigator: ( {G, ctx, moves} ) => {
+      if ( G["players"][ctx["currentPlayer"]]["investigator"]["name"] === "No" ){
+        let card = G["investigatorSheets"].pop()
+        G["players"][ctx["currentPlayer"]]["investigator"] = card
+      }
+    },
+
+    drawGod: ( {G, ctx, moves} ) => {
+      if ( G["ancientOne"]["name"] === "No" ){
+        let card = G["ancientOneSheets"].pop()
+        G["ancientOne"] = card
+      }
+    },
+
+    shuffleDeck: ( {G, ctx, moves}, name ) => {
+      shuffle(G[name])
+    },
+
+    convertir: ( {G, ctx, moves}, n, faces) => {
+      G["lastConversion"] = conversor(n, faces)
     }
   },
-
-  phases: {
-    upkeep: {
-      moves: {},
-      next: 'movement'
-    },
-
-    movement: {
-      moves: {},
-      next: 'arkhamEncounters'
-    },
-
-    arkhamEncounters: {
-      moves: {},
-      next: 'otherWorldEncounters'
-    },
-
-    otherWorldEncounters: {
-      moves: {},
-      next: 'mythos'
-    },
-
-    mythos: {
-      moves: {},
-      next: 'upkeep'
-    },
-  }
 }
 
 function deckBuilder(data){
@@ -181,7 +194,7 @@ function playerBuilder(number) {
       blessing: false,
       curse: false,
       deputy: [],
-      investigator: {},
+      investigator: { name: "No"},
     }
     array.push(player)
   }

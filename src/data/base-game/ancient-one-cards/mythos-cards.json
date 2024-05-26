@@ -252,7 +252,7 @@
 
      {
        "name": "Icy Conditions",
-       "type": "Environement (Weather)",
+       "type": "Environment (Weather)",
        "gate location": "Historical Society",
        "clue appears at": "Silver Twilight Lodge",
        "white": "{cross}",
@@ -282,7 +282,7 @@
 
      {
        "name": "An Evil Fog",
-       "type": "Environemnt (Weather)",
+       "type": "Environment (Weather)",
        "gate location": "Graveyard",
        "clue appears at": "Unvisited Isle",
        "white": "{cross}",
@@ -652,7 +652,7 @@
 
      {
        "name": "Blood Magic",
-       "type": "Environemnt (Mystic)",
+       "type": "Environment (Mystic)",
        "gate location": "Independence Square",
        "clue appears at": "Rivertown Streets",
        "white": "{square, diamond}",
@@ -662,7 +662,7 @@
 
      {
        "name": "The Chill of the Grave",
-       "type": "Environemnt (Mystic)",
+       "type": "Environment (Mystic)",
        "gate location": "Unvisited Isle",
        "clue appears at": "Science Building",
        "white": "{cross}",

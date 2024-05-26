@@ -1,4 +1,4 @@
-function conversor(n, difficulty=2){
+export function conversor(n, difficulty=2){
   let p = difficulty/6;
 
   let distribution = [];
@@ -7,16 +7,14 @@ function conversor(n, difficulty=2){
     let probability = (factorial(n) / (factorial(x) * factorial(n - x))) * (Math.pow(p, x)) * (Math.pow((1 - p), (n - x)));
     distribution.push(probability)
   }
-  let result = []
+  let result = "" 
   for (let i = 1; i <= n; i++){
     let sum =  0;
     for (let j = i; j <= n; j++){
       sum += distribution[j]
     }
-    result.push({
-      exitos: i,
-      probabilidad: Math.round(sum * 100),
-    })
+
+    result += `exitos: ${i} probabilidad: ${Math.round(sum * 100)}<br/>`
   }
 
   return result;
