@@ -64,7 +64,7 @@ export const ArkhamHorror = {
     searchCard: ( {G, ctx}, name, deck ) => {
       let array = G[deck]
       for (let i = 0; i < array.length; i++){
-        if (name === array[i]["name"]){
+        if (array[i]["name"].includes(name)){
           let card = array[i]
 
           G.players[ctx["currentPlayer"]][deck].push(card)
@@ -148,9 +148,56 @@ export const ArkhamHorror = {
       shuffle(G[name])
     },
 
+    becomeDeputy: ( {G, ctx} ) => {
+      for (let i = 0; i < 3; i++){
+        G["players"][ctx["currentPlayer"]]["commonItems"].push(G["deputy"].pop())
+      }
+    },
+
+    bless: ( {G, ctx, moves}) => {
+      if (G["players"][ctx["currentPlayer"]]["blessing"] == 0){
+        G["players"][ctx["currentPlayer"]]["blessing"] = 1
+      } else {
+        G["players"][ctx["currentPlayer"]]["blessing"] = 0
+      }
+    }, 
+
+    curse: ( {G, ctx, moves}) => {
+      if (G["players"][ctx["currentPlayer"]]["curse"] == 0){
+        G["players"][ctx["currentPlayer"]]["curse"] = 1
+      } else {
+        G["players"][ctx["currentPlayer"]]["curse"] = 0
+      }
+    }, 
+
+    retainer: ( {G, ctx, moves}) => {
+      if (G["players"][ctx["currentPlayer"]]["retainer"] == 0){
+        G["players"][ctx["currentPlayer"]]["retainer"] = 1
+      } else {
+        G["players"][ctx["currentPlayer"]]["retainer"] = 0
+      }
+    }, 
+
+    loan: ( {G, ctx, moves}) => {
+      if (G["players"][ctx["currentPlayer"]]["loan"] == 0){
+        G["players"][ctx["currentPlayer"]]["loan"] = 1
+      } else {
+        G["players"][ctx["currentPlayer"]]["loan"] = 0
+      }
+    }, 
+
+    membership: ( {G, ctx, moves}) => {
+      if (G["players"][ctx["currentPlayer"]]["membership"] == 0){
+        G["players"][ctx["currentPlayer"]]["membership"] = 1
+      } else {
+        G["players"][ctx["currentPlayer"]]["membership"] = 0
+      }
+    }, 
+
     convertir: ( {G, ctx, moves}, n, faces) => {
       G["lastConversion"] = conversor(n, faces)
-    }
+    },
+
   },
 }
 
@@ -188,11 +235,11 @@ function playerBuilder(number) {
       spells: [],
       skills: [],
       allies: [],
-      retainer: false,
-      membership: false,
-      loan: false,
-      blessing: false,
-      curse: false,
+      blessing: 0,
+      curse: 0,
+      retainer: 0,
+      loan: 0,
+      membership: 0,
       deputy: [],
       investigator: { name: "No"},
     }
